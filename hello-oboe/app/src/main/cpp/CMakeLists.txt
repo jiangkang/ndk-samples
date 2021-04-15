@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-cmake_minimum_required(VERSION 3.4.1)
+cmake_minimum_required(VERSION 3.10.2)
 project(hello-oboe LANGUAGES CXX)
 
 # add oboe pre-release lib hosted at https://maven.google.com/web/index.html
@@ -27,4 +27,4 @@ target_link_libraries(${PROJECT_NAME} oboe::oboe android log)
 
 # Enable optimization flags: if having problems with source level debugging,
 # disable -Ofast ( and debug ), re-enable after done debugging.
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Werror "$<$<CONFIG:RELEASE>:-Ofast>")
+target_compile_options(${PROJECT_NAME} PRIVATE -Wall  "$<$<CONFIG:RELEASE>:-Ofast>")

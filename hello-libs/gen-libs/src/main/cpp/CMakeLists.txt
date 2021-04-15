@@ -27,6 +27,7 @@ set(lib_src_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(lib_build_DIR $ENV{HOME}/tmp/${ANDROID_ABI})
 file(MAKE_DIRECTORY ${lib_build_DIR})
 
+# 添加子目录
 add_subdirectory(${lib_src_DIR}/gmath ${lib_build_DIR}/gmath)
 add_subdirectory(${lib_src_DIR}/gperf ${lib_build_DIR}/gperf)
 

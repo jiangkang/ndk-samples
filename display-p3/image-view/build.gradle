@@ -1,17 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
-    ndkVersion '21.2.6472646'
+    compileSdkVersion 30
 
     defaultConfig {
         applicationId = 'com.example.widecolor'
         minSdkVersion   29
-        targetSdkVersion 29  // p3_passthrough_ext starts from Android-29
+        targetSdkVersion 30  // p3_passthrough_ext starts from Android-29
                              // it could be lowered to Android-26, from which p3_ext started
         externalNativeBuild {
             cmake {
-                arguments '-DANDROID_STL=c++_static', '-DANDROID_PLATFORM=android-29'
+                arguments '-DANDROID_STL=c++_static', '-DANDROID_PLATFORM=latest'
             }
         }
     }

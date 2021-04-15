@@ -93,6 +93,7 @@ Java_com_example_hellojnicallback_MainActivity_stringFromJNI( JNIEnv* env, jobje
  *  The trivial implementation for these functions are inside file
  *     JniHelper.java
  */
+// 调用Java方法打印Android 版本号和可用内存
 void queryRuntimeInfo(JNIEnv *env, jobject instance) {
     // Find out which OS we are running on. It does not matter for this app
     // just to demo how to call static functions.
@@ -148,6 +149,7 @@ void queryRuntimeInfo(JNIEnv *env, jobject instance) {
  */
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
     JNIEnv* env;
+    // 分配内存
     memset(&g_ctx, 0, sizeof(g_ctx));
 
     g_ctx.javaVM = vm;
@@ -159,11 +161,15 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
                                     "com/example/hellojnicallback/JniHandler");
     g_ctx.jniHelperClz = (*env)->NewGlobalRef(env, clz);
 
+    // 构造函数
     jmethodID  jniHelperCtor = (*env)->GetMethodID(env, g_ctx.jniHelperClz,
                                                    "<init>", "()V");
+    // 对象
     jobject    handler = (*env)->NewObject(env, g_ctx.jniHelperClz,
                                            jniHelperCtor);
     g_ctx.jniHelperObj = (*env)->NewGlobalRef(env, handler);
+
+
     queryRuntimeInfo(env, g_ctx.jniHelperObj);
 
     g_ctx.done = 0;
@@ -270,8 +276,10 @@ Java_com_example_hellojnicallback_MainActivity_startTicks(JNIEnv *env, jobject i
     g_ctx.mainActivityClz = (*env)->NewGlobalRef(env, clz);
     g_ctx.mainActivityObj = (*env)->NewGlobalRef(env, instance);
 
+    // 创建线程
     int result  = pthread_create( &threadInfo_, &threadAttr_, UpdateTicks, &g_ctx);
     assert(result == 0);
+
 
     pthread_attr_destroy(&threadAttr_);
 
